@@ -39,7 +39,7 @@ public class Department {
 	public Long getId() {
 		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -52,13 +52,13 @@ public class Department {
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+		if (!(o instanceof Department)) return false;
 		Department that = (Department) o;
-		return Objects.equals(id, that.id) && Objects.equals(name, that.name);
+		return Objects.equals(id, that.getId()) && Objects.equals(name, that.getName());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name);
+		return Objects.hash(getId(), getName());
 	}
 }

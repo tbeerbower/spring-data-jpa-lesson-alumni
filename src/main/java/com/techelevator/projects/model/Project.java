@@ -86,13 +86,16 @@ public class Project {
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+		if (!(o instanceof Project)) return false;
 		Project project = (Project) o;
-		return Objects.equals(id, project.id) && Objects.equals(name, project.name) && Objects.equals(fromDate, project.fromDate) && Objects.equals(toDate, project.toDate);
+		return Objects.equals(id, project.getId()) &&
+			Objects.equals(name, project.getName()) &&
+			Objects.equals(fromDate, project.getFromDate()) &&
+			Objects.equals(toDate, project.getToDate());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, fromDate, toDate);
+		return Objects.hash(getId(), getName(), getFromDate(), getToDate());
 	}
 }

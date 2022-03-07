@@ -12,6 +12,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
@@ -69,8 +70,8 @@ public class SpringDataJpaLessonApplication {
 
 
 	@Bean
-	public CommandLineRunner demo(EmployeeRepository employeeRepository,
-								  DepartmentRepository departmentRepository, ProjectRepository projectRepository) {
+	public CommandLineRunner runner(EmployeeRepository employeeRepository,
+									DepartmentRepository departmentRepository, ProjectRepository projectRepository) {
 		return(args) -> {
 			this.employeeRepository = employeeRepository;
 			this.departmentRepository = departmentRepository;
@@ -165,7 +166,6 @@ public class SpringDataJpaLessonApplication {
 		printHeading("Employee Search");
 		String firstNameSearch = getUserInput("Enter first name to search for");
 		String lastNameSearch = getUserInput("Enter last name to search for");
-		//List<Employee> employees = employeeDao.searchEmployeesByName(firstNameSearch, lastNameSearch);
 		List<Employee> employees =
 			employeeRepository.findByFirstNameIgnoreCaseContainingAndLastNameIgnoreCaseContaining(firstNameSearch, lastNameSearch);
 		listEmployees(employees);
@@ -214,6 +214,7 @@ public class SpringDataJpaLessonApplication {
 		listProjects(projects);
 	}
 
+	@Transactional
 	private void handleAddProject() {
 		printHeading("Add New Project");
 		String newProjectName = getUserInput("Enter new Project name");
@@ -227,13 +228,13 @@ public class SpringDataJpaLessonApplication {
 		System.out.println("\n*** "+newProject.getName()+" created ***");
 	}
 
+	@Transactional
 	private void handleEmployeeProjectRemoval() {
 		printHeading("Remove Employee From Project");
 
 		Project selectedProject = getProjectSelectionFromUser();
 
 		System.out.println("Choose an employee to remove:");
-		//List<Employee> projectEmployees = employeeDao.getEmployeesByProjectId(selectedProject.getId());
 		List<Employee> projectEmployees = employeeRepository.findByProjects(selectedProject);
 		if(projectEmployees.size() > 0) {
 			Employee selectedEmployee = (Employee)menu.getChoiceFromOptions(projectEmployees.toArray());
@@ -245,13 +246,13 @@ public class SpringDataJpaLessonApplication {
 		}
 	}
 
+	@Transactional
 	private void handleEmployeeProjectAssignment() {
 		printHeading("Assign Employee To Project");
 
 		Project selectedProject = getProjectSelectionFromUser();
 
 		System.out.println("Choose an employee to add:");
-		//List<Employee> allEmployees = employeeDao.getAllEmployees();
 		List<Employee> allEmployees = employeeRepository.findAll();
 		Employee selectedEmployee = (Employee)menu.getChoiceFromOptions(allEmployees.toArray());
 		selectedProject.getEmployees().add(selectedEmployee);
@@ -259,6 +260,7 @@ public class SpringDataJpaLessonApplication {
 		System.out.println("\n*** "+selectedEmployee+" added to "+selectedProject+" ***");
 	}
 
+	@Transactional
 	private void handleDeleteProject() {
 		printHeading("Delete Project");
 		Project selectedProject = getProjectSelectionFromUser();
@@ -271,14 +273,12 @@ public class SpringDataJpaLessonApplication {
 
 	private void handleProjectEmployeeList() {
 		Project selectedProject = getProjectSelectionFromUser();
-		//List<Employee> projectEmployees = employeeDao.getEmployeesByProjectId(selectedProject.getId());
 		List<Employee> projectEmployees = employeeRepository.findByProjects(selectedProject);
 		listEmployees(projectEmployees);
 	}
 
 	private Project getProjectSelectionFromUser() {
 		System.out.println("Choose a project:");
-		//List<Project> allProjects = projectDao.getAllProjects();
 		List<Project> allProjects = projectRepository.findAll();
 		return (Project)menu.getChoiceFromOptions(allProjects.toArray());
 	}

@@ -28,7 +28,7 @@ public class Employee {
 	private String lastName;
 	private LocalDate birthDate;
 	private LocalDate hireDate;
-	@ManyToMany(mappedBy = "employees", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@ManyToMany(mappedBy = "employees", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private Set<Project> projects;
 
 	public Employee() {}
@@ -96,13 +96,18 @@ public class Employee {
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+		if(!(o instanceof Employee)) return false;
 		Employee employee = (Employee) o;
-		return Objects.equals(employeeId, employee.employeeId) && Objects.equals(departmentId, employee.departmentId) && Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName) && Objects.equals(birthDate, employee.birthDate) && Objects.equals(hireDate, employee.hireDate);
+		return Objects.equals(employeeId, employee.getId()) &&
+			Objects.equals(departmentId, employee.getDepartmentId()) &&
+			Objects.equals(firstName, employee.getFirstName()) &&
+			Objects.equals(lastName, employee.getLastName()) &&
+			Objects.equals(birthDate, employee.getBirthDate()) &&
+			Objects.equals(hireDate, employee.getHireDate());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(employeeId, departmentId, firstName, lastName, birthDate, hireDate);
+		return Objects.hash(getId(), getDepartmentId(), getFirstName(), getLastName(), getBirthDate(), getHireDate());
 	}
 }
