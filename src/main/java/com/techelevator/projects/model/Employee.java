@@ -11,6 +11,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -28,7 +29,7 @@ public class Employee {
 	private String lastName;
 	private LocalDate birthDate;
 	private LocalDate hireDate;
-	@ManyToMany(mappedBy = "employees", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@ManyToMany(mappedBy = "employees", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private Set<Project> projects;
 
 	public Employee() {}
@@ -49,7 +50,7 @@ public class Employee {
 	public void setId(Long employeeId) {
 		this.employeeId = employeeId;
 	}
-	public long getDepartmentId() {
+	public Long getDepartmentId() {
 		return departmentId;
 	}
 	public void setDepartmentId(Long departmentId) {
