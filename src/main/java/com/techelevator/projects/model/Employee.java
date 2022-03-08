@@ -7,7 +7,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -24,7 +26,9 @@ public class Employee {
 		generator="employee_employee_id_seq")
 	@Column(name = "employee_id", updatable=false)
 	private Long employeeId;
-	private Long departmentId;
+	@ManyToOne
+	@JoinColumn(name = "department_id", referencedColumnName = "department_id")
+	Department department;
 	private String firstName;
 	private String lastName;
 	private LocalDate birthDate;
@@ -34,10 +38,10 @@ public class Employee {
 
 	public Employee() {}
 
-	public Employee(Long employeeId, Long departmentId, String firstName, String lastName,
+	public Employee(Long employeeId, Department department, String firstName, String lastName,
 					LocalDate birthDate, LocalDate hireDate) {
 		this.employeeId = employeeId;
-		this.departmentId = departmentId;
+		this.department = department;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.birthDate = birthDate;
@@ -50,12 +54,15 @@ public class Employee {
 	public void setId(Long employeeId) {
 		this.employeeId = employeeId;
 	}
-	public Long getDepartmentId() {
-		return departmentId;
+
+	public Department getDepartment() {
+		return department;
 	}
-	public void setDepartmentId(Long departmentId) {
-		this.departmentId = departmentId;
+
+	public void setDepartment(Department department) {
+		this.department = department;
 	}
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -100,7 +107,7 @@ public class Employee {
 		if(!(o instanceof Employee)) return false;
 		Employee employee = (Employee) o;
 		return Objects.equals(employeeId, employee.getId()) &&
-			Objects.equals(departmentId, employee.getDepartmentId()) &&
+			Objects.equals(department, employee.getDepartment()) &&
 			Objects.equals(firstName, employee.getFirstName()) &&
 			Objects.equals(lastName, employee.getLastName()) &&
 			Objects.equals(birthDate, employee.getBirthDate()) &&
@@ -109,6 +116,6 @@ public class Employee {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getId(), getDepartmentId(), getFirstName(), getLastName(), getBirthDate(), getHireDate());
+		return Objects.hash(getId(), getDepartment(), getFirstName(), getLastName(), getBirthDate(), getHireDate());
 	}
 }

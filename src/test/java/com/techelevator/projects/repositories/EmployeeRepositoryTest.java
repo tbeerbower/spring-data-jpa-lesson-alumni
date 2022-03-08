@@ -1,5 +1,6 @@
 package com.techelevator.projects.repositories;
 
+import com.techelevator.projects.model.Department;
 import com.techelevator.projects.model.Employee;
 import com.techelevator.projects.model.Project;
 import org.junit.jupiter.api.Test;
@@ -11,17 +12,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class EmployeeRepositoryTest extends BaseRepositoryTest {
 
+    private static final Department DEPARTMENT_1 = new Department(1L, "Department 1");
+    private static final Department DEPARTMENT_2 = new Department(2L, "Department 2");
+
     private static final Employee EMPLOYEE_1 =
-        new Employee(1L, 1L, "First1", "Last1",
+        new Employee(1L, DEPARTMENT_1, "First1", "Last1",
             LocalDate.parse("1981-01-01"), LocalDate.parse("2001-01-02"));
     private static final Employee EMPLOYEE_2 =
-        new Employee(2L, 2L, "First2", "Last2",
+        new Employee(2L, DEPARTMENT_2, "First2", "Last2",
             LocalDate.parse("1982-02-01"), LocalDate.parse("2002-02-03"));
     private static final Employee EMPLOYEE_3 =
-        new Employee(3L, 1L, "First3", "Last3",
+        new Employee(3L, DEPARTMENT_1, "First3", "Last3",
             LocalDate.parse("1983-03-01"), LocalDate.parse("2003-03-04"));
     private static final Employee EMPLOYEE_4 =
-        new Employee(4L, 1L, "First4", "Last4",
+        new Employee(4L, DEPARTMENT_1, "First4", "Last4",
             LocalDate.parse("1984-04-01"), LocalDate.parse("2004-04-05"));
 
 
