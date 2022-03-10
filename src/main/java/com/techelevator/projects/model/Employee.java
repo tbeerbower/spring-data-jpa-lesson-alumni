@@ -28,7 +28,7 @@ public class Employee {
 	private Long employeeId;
 	@ManyToOne
 	@JoinColumn(name = "department_id", referencedColumnName = "department_id")
-	Department department;
+	private Department department;
 	private String firstName;
 	private String lastName;
 	private LocalDate birthDate;
