@@ -16,7 +16,7 @@ import java.util.Set;
 public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long employeeId;
+	private Long id;
 	@ManyToOne
 	private Department department;
 	private String firstName;
@@ -28,9 +28,9 @@ public class Employee {
 
 	public Employee() {}
 
-	public Employee(Long employeeId, Department department, String firstName, String lastName,
+	public Employee(Long id, Department department, String firstName, String lastName,
 					LocalDate birthDate, LocalDate hireDate) {
-		this.employeeId = employeeId;
+		this.id = id;
 		this.department = department;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -39,10 +39,10 @@ public class Employee {
 	}
 
 	public Long getId() {
-		return employeeId;
+		return id;
 	}
 	public void setId(Long employeeId) {
-		this.employeeId = employeeId;
+		this.id = employeeId;
 	}
 	public Department getDepartment() {
 		return department;
@@ -95,7 +95,7 @@ public class Employee {
 		if (this == o) return true;
 		if(!(o instanceof Employee)) return false;
 		Employee employee = (Employee) o;
-		return Objects.equals(employeeId, employee.getId()) &&
+		return Objects.equals(id, employee.getId()) &&
 			Objects.equals(department, employee.getDepartment()) &&
 			Objects.equals(firstName, employee.getFirstName()) &&
 			Objects.equals(lastName, employee.getLastName()) &&
