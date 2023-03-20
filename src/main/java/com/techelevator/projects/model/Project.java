@@ -1,16 +1,12 @@
 package com.techelevator.projects.model;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.SequenceGenerator;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
@@ -19,21 +15,12 @@ import java.util.Set;
 public class Project {
 
 	@Id
-	@SequenceGenerator(name="project_project_id_seq",
-		sequenceName="project_project_id_seq",
-		allocationSize=1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE,
-		generator="project_project_id_seq")
-	@Column(name = "project_id", updatable=false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private LocalDate fromDate;
 	private LocalDate toDate;
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-	@JoinTable(
-		name = "project_employee",
-		joinColumns = @JoinColumn(name = "project_id"),
-		inverseJoinColumns = @JoinColumn(name = "employee_id"))
 	private Set<Employee> employees;
 
 	public Project() {}
@@ -73,7 +60,6 @@ public class Project {
 	public Set<Employee> getEmployees() {
 		return employees;
 	}
-
 	public void setEmployees(Set<Employee> employees) {
 		this.employees = employees;
 	}

@@ -1,33 +1,23 @@
 package com.techelevator.projects.model;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import java.time.LocalDate;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 
 @Entity
 public class Employee {
 	@Id
-	@SequenceGenerator(name="employee_employee_id_seq",
-		sequenceName="employee_employee_id_seq",
-		allocationSize=1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE,
-		generator="employee_employee_id_seq")
-	@Column(name = "employee_id", updatable=false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long employeeId;
 	@ManyToOne
-	@JoinColumn(name = "department_id", referencedColumnName = "department_id")
 	private Department department;
 	private String firstName;
 	private String lastName;
@@ -54,18 +44,17 @@ public class Employee {
 	public void setId(Long employeeId) {
 		this.employeeId = employeeId;
 	}
-
 	public Department getDepartment() {
 		return department;
 	}
-
+	// department
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
-
 	public String getFirstName() {
 		return firstName;
 	}
+    // -----
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
@@ -87,14 +76,14 @@ public class Employee {
 	public void setHireDate(LocalDate hireDate) {
 		this.hireDate = hireDate;
 	}
-
+    // projects
 	public Set<Project> getProjects() {
 		return projects;
 	}
-
 	public void setProjects(Set<Project> projects) {
 		this.projects = projects;
 	}
+	// -----
 
 	@Override
 	public String toString() {

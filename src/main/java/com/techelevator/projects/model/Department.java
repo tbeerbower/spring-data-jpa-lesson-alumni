@@ -1,23 +1,16 @@
 package com.techelevator.projects.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import java.util.Objects;
 
 @Entity
 public class Department {
 
 	@Id
-	@SequenceGenerator(name="department_department_id_seq",
-		sequenceName="department_department_id_seq",
-		allocationSize=1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE,
-		generator="department_department_id_seq")
-	@Column(name = "department_id", updatable=false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 
