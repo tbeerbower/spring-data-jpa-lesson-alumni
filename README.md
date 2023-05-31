@@ -66,7 +66,7 @@ The project `pom.xml` should contain the following Spring dependencies...
 ### Configuration
 Note that the Spring configuration is specified in `resources/application.properties`
 ```
-spring.datasource.url=jdbc:postgresql://localhost:5432/employeesjpa
+spring.datasource.url=jdbc:postgresql://localhost:5432/EmployeeProjectsJPA
 spring.datasource.username=postgres
 spring.datasource.password=postgres1
 spring.datasource.platform=postgres
@@ -74,12 +74,14 @@ spring.datasource.driver-class-name=org.postgresql.Driver
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
 spring.jpa.properties.hibernate.temp.use_jdbc_metadata_defaults=false
 spring.jpa.show-sql=true
-spring.jpa.hibernate.ddl-auto=update
+spring.sql.init.mode=always
+spring.jpa.hibernate.ddl-auto=create-drop
+
 spring.mvc.pathmatch.matching-strategy=ant-path-matcher
 ```
 
 ### Database
-In the configuration above, note the name of the database `employeesjpa`.  The framework will automatically create the database schema (tables, constraints, etc) for you, but the database needs to exist.
+In the configuration above, note the name of the database `EmployeeProjectsJPA`.  The framework will automatically create the database schema (tables, constraints, etc) for you, but the database needs to exist.
 You can create the database through `PgAdmin` or some other similar tool.
 
 If you want to load the database with some example data, you can open and run the `resources/data.sql` file in `PgAdmin` or some similar tool.
