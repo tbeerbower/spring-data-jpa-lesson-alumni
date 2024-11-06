@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Scanner;
 
 @SpringBootApplication
-public class SpringDataJpaLessonApplication {
+public class SpringDataJpaLessonApplication implements CommandLineRunner {
 	private static final String MAIN_MENU_OPTION_EMPLOYEES = "Employees";
 	private static final String MAIN_MENU_OPTION_DEPARTMENTS = "Departments";
 	private static final String MAIN_MENU_OPTION_PROJECTS = "Projects";
@@ -60,31 +60,26 @@ public class SpringDataJpaLessonApplication {
 
 
 	private final Menu menu;
-	private EmployeeRepository employeeRepository;
-	private DepartmentRepository departmentRepository;
-	private ProjectRepository projectRepository;
+	private final EmployeeRepository employeeRepository;
+	private final DepartmentRepository departmentRepository;
+	private final ProjectRepository projectRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringDataJpaLessonApplication.class, args);
 	}
 
-
-	@Bean
-	public CommandLineRunner runner(EmployeeRepository employeeRepository,
-									DepartmentRepository departmentRepository, ProjectRepository projectRepository) {
-		return(args) -> {
-			this.employeeRepository = employeeRepository;
-			this.departmentRepository = departmentRepository;
-			this.projectRepository = projectRepository;
-			run();
-		};
-	}
-
-	public SpringDataJpaLessonApplication() {
+	public SpringDataJpaLessonApplication(EmployeeRepository employeeRepository,
+										  DepartmentRepository departmentRepository,
+										  ProjectRepository projectRepository) {
+		this.employeeRepository = employeeRepository;
+		this.departmentRepository = departmentRepository;
+		this.projectRepository = projectRepository;
 		this.menu = new Menu(System.in, System.out);
 	}
 
-	private void run() {
+	@Override
+	public void run(String... args) throws Exception {
+
 		displayApplicationBanner();
 		boolean running = true;
 		while(running) {
