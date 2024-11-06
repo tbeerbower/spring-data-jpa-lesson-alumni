@@ -6,6 +6,13 @@ Note that the the code for this exercise has been refactored from the following 
 ```
 te-curriculum-jan-2023\java\module-2\07_Data_Access_and_DAO\exercise-final
 ```
+In Part Time ...
+```
+te-curriculum-part-time-2024.1\java\module-2\week-3\02_Data_Access_Part_2\exercise-final
+```
+
+
+
 ### Entities
 
 Note the JPA annotations used to indicate that model objects are JPA entities.
